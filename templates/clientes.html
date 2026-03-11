@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Clientes</h2>
+</div>
+
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <form method="POST">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">Nome</label>
+                    <input type="text" name="nome" class="form-control" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Telefone</label>
+                    <input type="text" name="telefone" class="form-control">
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Cidade</label>
+                    <input type="text" name="cidade" class="form-control">
+                </div>
+            </div>
+
+            <div class="mt-3">
+                <button type="submit" class="btn btn-primary">Salvar Cliente</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h5 class="mb-3">Lista de Clientes</h5>
+
+        {% if clientes %}
+            <div class="table-responsive">
+                <table class="table table-striped align-middle">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Telefone</th>
+                            <th>Cidade</th>
+                            <th>Data Cadastro</th>
+			    <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cliente in clientes %}
+                        <tr>
+                            <td>{{ cliente.id }}</td>
+                            <td>{{ cliente.nome }}</td>
+                            <td>{{ cliente.telefone or '-' }}</td>
+                            <td>{{ cliente.cidade or '-' }}</td>
+                            <td>{{ cliente.data_cadastro.strftime('%d/%m/%Y %H:%M') if cliente.data_cadastro else '-' }}</td>
+			    <td>
+        			<a href="/clientes/editar/{{ cliente.id }}" class="btn btn-sm btn-warning">Editar</a>
+        			<a href="/clientes/excluir/{{ cliente.id }}" class="btn btn-sm btn-danger">Excluir</a>
+    			   </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="mb-0">Nenhum cliente cadastrado ainda.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

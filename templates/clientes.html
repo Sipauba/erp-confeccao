@@ -59,8 +59,8 @@
                             <td>{{ cliente.cidade or '-' }}</td>
                             <td>{{ cliente.data_cadastro.strftime('%d/%m/%Y %H:%M') if cliente.data_cadastro else '-' }}</td>
 			    <td>
-        			<a href="/clientes/editar/{{ cliente.id }}" class="btn btn-sm btn-warning">Editar</a>
-        			<a href="/clientes/excluir/{{ cliente.id }}" class="btn btn-sm btn-danger">Excluir</a>
+        			<a href="{{ url_for('clientes.editar_cliente', id=cliente.id) }}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{{ url_for('clientes.excluir_cliente', id=cliente.id) }}" class="btn btn-sm btn-danger">Excluir</a>
     			   </td>
                         </tr>
                         {% endfor %}
